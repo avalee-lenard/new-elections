@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="New Elections — a nonpartisan introduction to how elections work and how to get ready to vote."
+    >
+    <meta name="author" content="Avalee Lenard">
+    <title>New Elections | Avalee Lenard</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172d35;
+        --muted: #54676b;
+        --paper: #fbf8f1;
+        --teal: #185e59;
+        --teal-dark: #104540;
+        --coral: #e8795f;
+        --line: #dedfd6;
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--coral);
+        outline-offset: 4px;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 48px));
+        margin-inline: auto;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 82px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        color: var(--teal-dark);
+        font-family: var(--serif);
+        font-size: 1.45rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+
+      nav a {
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      nav a:hover {
+        color: var(--teal);
+      }
+
+      .nav-cta {
+        padding: 10px 16px;
+        border: 1px solid var(--teal);
+        border-radius: 999px;
+        color: var(--teal);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 56px;
+        align-items: center;
+        padding-block: 88px 96px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        gap: 9px;
+        align-items: center;
+        margin: 0 0 22px;
+        color: var(--teal);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 25px;
+        height: 2px;
+        background: var(--coral);
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: -0.045em;
+      }
+
+      h1 {
+        max-width: 650px;
+        margin-bottom: 22px;
+        font-size: clamp(3.4rem, 7vw, 6.2rem);
+        line-height: 0.98;
+      }
+
+      h1 em {
+        color: var(--teal);
+        font-weight: 400;
+      }
+
+      .hero-copy {
+        max-width: 500px;
+        margin-bottom: 30px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 22px;
+        border-radius: 999px;
+        background: var(--teal);
+        color: white;
+        font-size: 0.92rem;
+        font-weight: 650;
+        text-decoration: none;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        background: var(--teal-dark);
+      }
+
+      .hero-art {
+        position: relative;
+        display: grid;
+        min-height: 410px;
+        overflow: hidden;
+        place-items: center;
+        border-radius: 48% 48% 14px 14px;
+        background: #e8eee6;
+      }
+
+      .sun {
+        position: absolute;
+        top: 13%;
+        right: 13%;
+        width: 85px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #f2bf75;
+      }
+
+      .hill {
+        position: absolute;
+        right: -15%;
+        bottom: -34%;
+        left: -15%;
+        height: 65%;
+        border-radius: 50% 50% 0 0;
+        background: #b7cfb9;
+        transform: rotate(-8deg);
+      }
+
+      .hill.back {
+        right: 20%;
+        bottom: -39%;
+        left: -35%;
+        height: 70%;
+        background: #7eaa91;
+        transform: rotate(12deg);
+      }
+
+      .ballot {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        width: 182px;
+        height: 218px;
+        padding: 24px;
+        place-content: center;
+        gap: 16px;
+        border: 1px solid #e4e0d3;
+        border-radius: 8px;
+        background: #fffdf7;
+        box-shadow: 0 18px 48px #173a3530;
+        transform: rotate(-7deg);
+      }
+
+      .ballot::before {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        width: 80px;
+        height: 43px;
+        border: 2px solid #fffdf7;
+        border-bottom: 0;
+        border-radius: 8px 8px 0 0;
+        content: "";
+        transform: translateX(-50%);
+      }
+
+      .ballot-line {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .ballot-line span:first-child {
+        width: 18px;
+        height: 18px;
+        border: 1px solid #91a39a;
+        border-radius: 4px;
+      }
+
+      .ballot-line span:last-child {
+        width: 78px;
+        height: 6px;
+        border-radius: 9px;
+        background: #d7ddd4;
+      }
+
+      .ballot-line.checked span:first-child {
+        display: grid;
+        place-items: center;
+        border-color: var(--teal);
+        background: var(--teal);
+        color: white;
+        font-size: 14px;
+      }
+
+      .ballot-line.checked span:first-child::after {
+        content: "✓";
+      }
+
+      .section {
+        padding-block: 86px;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        align-items: end;
+        margin-bottom: 38px;
+      }
+
+      .section-heading h2 {
+        max-width: 500px;
+        margin-bottom: 0;
+        font-size: clamp(2.4rem, 5vw, 3.8rem);
+        line-height: 1.05;
+      }
+
+      .section-heading p {
+        max-width: 350px;
+        margin-bottom: 5px;
+        color: var(--muted);
+      }
+
+      .learn {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        min-height: 250px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fffdf8;
+      }
+
+      .card-number {
+        display: inline-grid;
+        width: 36px;
+        height: 36px;
+        margin-bottom: 29px;
+        place-items: center;
+        border-radius: 50%;
+        background: #e8eee6;
+        color: var(--teal-dark);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+        font-size: 1.55rem;
+      }
+
+      .card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .ready {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 72px;
+        align-items: start;
+      }
+
+      .ready h2 {
+        margin-bottom: 16px;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1.04;
+      }
+
+      .ready-intro {
+        color: var(--muted);
+      }
+
+      .checklist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .checklist li {
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        gap: 14px;
+        padding: 19px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .check {
+        display: grid;
+        width: 26px;
+        height: 26px;
+        place-items: center;
+        border: 1px solid #abc0b0;
+        border-radius: 50%;
+        color: var(--teal);
+        font-size: 0.83rem;
+        font-weight: 700;
+      }
+
+      .checklist strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .checklist p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .note {
+        padding-block: 32px;
+        background: #e8eee6;
+      }
+
+      .note-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .note p {
+        max-width: 680px;
+        margin: 0;
+        color: #35524b;
+        font-size: 0.94rem;
+      }
+
+      .note strong {
+        color: var(--teal-dark);
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding-block: 26px;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 760px) {
+        .wrap {
+          width: min(100% - 36px, 560px);
+        }
+
+        .topbar {
+          min-height: 70px;
+        }
+
+        nav {
+          gap: 15px;
+        }
+
+        nav a {
+          font-size: 0.8rem;
+        }
+
+        nav a:first-child {
+          display: none;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 42px;
+          padding-block: 68px;
+        }
+
+        .hero-art {
+          min-height: 350px;
+        }
+
+        .section {
+          padding-block: 64px;
+        }
+
+        .section-heading,
+        .ready {
+          grid-template-columns: 1fr;
+          display: grid;
+          gap: 16px;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          min-height: 0;
+        }
+
+        .card-number {
+          margin-bottom: 20px;
+        }
+
+        .ready {
+          gap: 28px;
+        }
+
+        .note-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrap topbar">
+      <a class="brand" href="#" aria-label="New Elections home">new elections<span aria-hidden="true">.</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#learn">The basics</a>
+        <a href="#get-ready">Get ready</a>
+        <a class="nav-cta" href="#get-ready">Make a plan</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="wrap hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">A little more informed</p>
+          <h1 id="hero-title">A fresh look at <em>your vote.</em></h1>
+          <p class="hero-copy">
+            Elections are how communities choose their representatives and shape
+            what comes next. Start with the basics, find trustworthy information,
+            and make a plan that works for you.
+          </p>
+          <a class="button" href="#learn">Explore the essentials <span aria-hidden="true">&nbsp;→</span></a>
+        </div>
+        <div class="hero-art" role="img" aria-label="Illustration of a ballot box on a green hillside">
+          <div class="sun"></div>
+          <div class="hill back"></div>
+          <div class="hill"></div>
+          <div class="ballot" aria-hidden="true">
+            <div class="ballot-line checked"><span></span><span></span></div>
+            <div class="ballot-line"><span></span><span></span></div>
+            <div class="ballot-line"><span></span><span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="learn section" id="learn" aria-labelledby="learn-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="learn-title">Elections, made a little clearer.</h2>
+            <p>A few helpful starting points for understanding the process and finding your place in it.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <span class="card-number" aria-hidden="true">01</span>
+              <h3>Know what’s on the ballot</h3>
+              <p>Learn which offices and questions are up for a vote. Nonpartisan voter guides can help you compare candidates and understand local measures.</p>
+            </article>
+            <article class="card">
+              <span class="card-number" aria-hidden="true">02</span>
+              <h3>Check the details</h3>
+              <p>Registration, deadlines, and voting options depend on where you live. Your official election office is the best place to confirm them.</p>
+            </article>
+            <article class="card">
+              <span class="card-number" aria-hidden="true">03</span>
+              <h3>Make your voice count</h3>
+              <p>Whether you vote early, by mail, or in person, making a plan ahead of time can make participating feel more straightforward.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap section ready" id="get-ready" aria-labelledby="ready-title">
+        <div>
+          <p class="eyebrow">Your next steps</p>
+          <h2 id="ready-title">A simple plan goes a long way.</h2>
+          <p class="ready-intro">Take a few minutes to get familiar with the process. Use official sources for the rules and dates where you live.</p>
+        </div>
+        <ul class="checklist">
+          <li>
+            <span class="check" aria-hidden="true">1</span>
+            <div><strong>Find your official election office</strong><p>Look up your state or local election website for accurate, location-specific information.</p></div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">2</span>
+            <div><strong>Review registration and deadlines</strong><p>Check your registration status and confirm the dates and requirements that apply to you.</p></div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">3</span>
+            <div><strong>Choose how you’ll participate</strong><p>Explore the voting options available in your area and decide what fits your schedule.</p></div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">4</span>
+            <div><strong>Get informed and make a plan</strong><p>Read reliable sources about the candidates and issues, then put your plan on the calendar.</p></div>
+          </li>
+        </ul>
+      </section>
+
+      <aside class="note">
+        <div class="wrap note-inner">
+          <p><strong>Keep it local.</strong> Election dates, registration rules, and voting methods vary by location. Always verify current details with your official election authority.</p>
+          <a class="button" href="https://www.usa.gov/election-office" target="_blank" rel="noopener noreferrer">Find an election office <span aria-hidden="true">&nbsp;↗</span></a>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="wrap footer">
+      <p>© 2026 New Elections</p>
+      <p>Created by Avalee Lenard</p>
+    </footer>
+  </body>
+</html>
